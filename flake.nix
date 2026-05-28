@@ -55,6 +55,7 @@
             _module.args = {
               inherit rosPkgs;
               inherit rosDeps;
+              inherit pkgs;
             };
 
             devenv.root =
