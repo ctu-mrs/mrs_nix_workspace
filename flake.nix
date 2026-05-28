@@ -43,7 +43,6 @@
             
             # Look how clean this is! They are just standard packages now.
             rosPkgs.mrs_multirotor_simulator
-            rosPkgs.mrs_uav_hw_api
           ];
         in
         {
