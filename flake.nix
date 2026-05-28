@@ -6,7 +6,7 @@
     # 1. Pull in your monolithic overlay
     nix-mrs-overlay.url = "github:ctu-mrs/nix-mrs-overlay/master";
 
-    # 2. THE CACHE GUARANTEE: Force this workspace to use the exact 
+    # 2. THE CACHE GUARANTEE: Force this workspace to use the exact
     # same nixpkgs and ros-overlay that your central cache was built against.
     nixpkgs.follows = "nix-mrs-overlay/nixpkgs";
     nix-ros-overlay.follows = "nix-mrs-overlay/nix-ros-overlay";
@@ -43,6 +43,9 @@
             
             # Look how clean this is! They are just standard packages now.
             rosPkgs.mrs_multirotor_simulator
+
+            pkgs.tmux
+            pkgs.tmuxinator
           ];
         in
         {
