@@ -1,0 +1,7 @@
+build:
+  mixin:
+    - rel-with-deb-info
+    - compile-commands
+  symlink-install: True
+  allow-overriding: [
+  ]
