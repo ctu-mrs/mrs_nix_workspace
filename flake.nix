@@ -36,6 +36,14 @@
 
           # Mix standard ROS core tools with your pre-compiled custom MRS packages
           rosDeps = [
+            ros.ros-core
+            ros.sensor-msgs
+            ros.ament-cmake-core
+            ros.python-cmake-module
+            
+            # Look how clean this is! They are just standard packages now.
+            rosPkgs.mrs_multirotor_simulator
+            rosPkgs.mrs_uav_hw_api
           ];
         in
         {
