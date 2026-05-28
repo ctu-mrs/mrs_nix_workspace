@@ -5,6 +5,7 @@ let
 in
 {
   env.RMW_IMPLEMENTATION="rmw_fastrtps_cpp";
+  env.MAKEFLAGS="-j`nproc`";
 
   packages = [ rosPkgs.colcon (ros.buildEnv { paths = deps; }) ];
 
@@ -13,4 +14,4 @@ in
     eval "$(register-python-argcomplete colcon)"
     echo "🔧 Welcome to the MRS devenv environment!"
   '';
-}
+
