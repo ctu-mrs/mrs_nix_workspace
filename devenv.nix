@@ -5,7 +5,6 @@ let
 in
 {
   env.RMW_IMPLEMENTATION="rmw_fastrtps_cpp";
-  env.MAKEFLAGS="-j`nproc`";
 
   packages = [ rosPkgs.colcon (ros.buildEnv { paths = deps; }) ];
 
