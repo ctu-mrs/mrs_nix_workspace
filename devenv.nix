@@ -13,4 +13,4 @@ in
     eval "$(register-python-argcomplete colcon)"
     echo "🔧 Welcome to the MRS devenv environment!"
   '';
-
+}
