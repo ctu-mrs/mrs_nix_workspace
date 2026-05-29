@@ -6,13 +6,21 @@ in
 {
   env.RMW_IMPLEMENTATION="rmw_fastrtps_cpp";
   env.RUN_TMUX="false";
+
+  # fixes tmux inside urxvt
   env.TERMINFO_DIRS = "${pkgs.rxvt-unicode-unwrapped.terminfo}/share/terminfo:/usr/share/terminfo:/lib/terminfo";
 
   packages = [
     rosPkgs.colcon
+
     pkgs.tmux
+
     pkgs.rxvt-unicode-unwrapped.terminfo
-    rosPkgs.nixgl.auto.nixGLNvidia
+
+    rosPkgs.nixgl.auto.nixGLDefault
+    # rosPkgs.nixgl.auto.nixGLNvidia
+    # rosPkgs.nixgl.nixGLIntel
+
     (ros.buildEnv { paths = deps; })
   ];
 
@@ -34,7 +42,7 @@ in
 
     if command -v nixGL &> /dev/null; then
       echo "☢️ WARNING: Globally injecting host graphics drivers into shell..."
-      
+
       export LD_LIBRARY_PATH=$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH
       export LIBGL_DRIVERS_PATH=$(nixGL printenv LIBGL_DRIVERS_PATH)
       export __EGL_VENDOR_LIBRARY_FILENAMES=$(nixGL printenv __EGL_VENDOR_LIBRARY_FILENAMES)
