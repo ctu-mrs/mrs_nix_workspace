@@ -39,8 +39,12 @@ in
       export LIBGL_DRIVERS_PATH=$(nixGL printenv LIBGL_DRIVERS_PATH)
       export __EGL_VENDOR_LIBRARY_FILENAMES=$(nixGL printenv __EGL_VENDOR_LIBRARY_FILENAMES)
     else
-      echo "☢️ not running with libgl"
+      echo "☢️ not running with nixGL"
     fi
 
+    [ -f ./install/setup.sh ] && source ./install/setup.sh
+
+    # Add to ~/.zshrc
+    PROMPT="[mrs-nix-workspace] $PROMPT"
   '';
 }
