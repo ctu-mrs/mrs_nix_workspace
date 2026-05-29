@@ -44,6 +44,7 @@
             ros.python-cmake-module
             ros.rmw-zenoh-cpp
             ros.rclpy
+            ros.python
             ros.rviz2
             
             rosPkgs.mrs_multirotor_simulator
