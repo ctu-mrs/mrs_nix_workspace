@@ -43,8 +43,5 @@ in
     fi
 
     [ -f ./install/setup.sh ] && source ./install/setup.sh
-
-    # Add to ~/.zshrc
-    PROMPT="[mrs-nix-workspace] $PROMPT"
   '';
 }
