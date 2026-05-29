@@ -31,5 +31,15 @@ in
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __GLX_VENDOR_LIBRARY_NAME=nvidia
     export __VK_LAYER_NV_optimus=NVIDIA_only
+
+    [ -f ./install/setup.sh ] && source ./install/setup.sh
+
+    if command -v nixGL &> /dev/null; then
+      echo "☢️ WARNING: Globally injecting host graphics drivers into shell..."
+      
+      export LD_LIBRARY_PATH=$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH
+      export LIBGL_DRIVERS_PATH=$(nixGL printenv LIBGL_DRIVERS_PATH)
+      export __EGL_VENDOR_LIBRARY_FILENAMES=$(nixGL printenv __EGL_VENDOR_LIBRARY_FILENAMES)
+    fi
   '';
 }
