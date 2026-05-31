@@ -50,6 +50,6 @@ in
       echo "☢️ not running with nixGL"
     fi
 
-    [ -f ./install/setup.sh ] && source ./install/setup.sh
+    # source ./install/local_setup.zsh
   '';
 }

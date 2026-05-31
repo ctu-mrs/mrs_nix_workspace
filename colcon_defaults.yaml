@@ -4,4 +4,5 @@ build:
     - compile-commands
   symlink-install: True
   allow-overriding: [
+    "mrs_uav_managers"
   ]
