@@ -10,6 +10,7 @@
   outputs = { self, nix-ros-overlay, nix-mrs-overlay, nixpkgs }:
     nix-ros-overlay.inputs.flake-utils.lib.eachDefaultSystem (system:
       let
+
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
@@ -17,6 +18,8 @@
             nix-mrs-overlay.overlays.default
           ];
         };
+
+        ros = pkgs.rosPackages.jazzy;
       in {
         devShells.default = pkgs.mkShell {
 
@@ -27,20 +30,16 @@
             pkgs.tmux
             pkgs.tmuxinator
 
-            # ... other non-ROS packages
-            (with pkgs.rosPackages.jazzy; buildEnv {
-              paths = [
-                ros-core
-                rviz2
+            ros.ros-core
+            ros.rviz2
 
-                mrsCustomPkgs.mrs_multirotor_simulator
-                mrsCustomPkgs.mrs_uav_managers
-                mrsCustomPkgs.mrs_uav_controllers
-                mrsCustomPkgs.mrs_uav_trackers
-                mrsCustomPkgs.mrs_uav_trajectory_generation
-                mrsCustomPkgs.mrs_uav_core
-              ];
-            })
+            pkgs.mrsCustomPkgs.mrs_multirotor_simulator
+            pkgs.mrsCustomPkgs.mrs_uav_managers
+            pkgs.mrsCustomPkgs.mrs_uav_controllers
+            pkgs.mrsCustomPkgs.mrs_uav_trackers
+            pkgs.mrsCustomPkgs.mrs_uav_trajectory_generation
+            pkgs.mrsCustomPkgs.mrs_uav_core
+            
           ];
         };
       });
