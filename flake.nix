@@ -20,6 +20,8 @@
         };
 
         ros = pkgs.rosPackages.jazzy;
+        mrs = pkgs.mrsCustomPkgs;
+
       in {
         devShells.default = pkgs.mkShell {
 
@@ -33,12 +35,12 @@
             ros.ros-core
             ros.rviz2
 
-            pkgs.mrsCustomPkgs.mrs_multirotor_simulator
-            pkgs.mrsCustomPkgs.mrs_uav_managers
-            pkgs.mrsCustomPkgs.mrs_uav_controllers
-            pkgs.mrsCustomPkgs.mrs_uav_trackers
-            pkgs.mrsCustomPkgs.mrs_uav_trajectory_generation
-            pkgs.mrsCustomPkgs.mrs_uav_core
+            mrs.mrs_multirotor_simulator
+            mrs.mrs_uav_managers
+            mrs.mrs_uav_controllers
+            mrs.mrs_uav_trackers
+            mrs.mrs_uav_trajectory_generation
+            mrs.mrs_uav_core
             
           ];
         };
