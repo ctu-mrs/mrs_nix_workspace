@@ -30,7 +30,7 @@
 
           name = "MRS shell";
 
-          env.RMW_IMPLEMENTATION="rmw_cyclonedds_cpp";
+          env.RMW_IMPLEMENTATION="rmw_zenoh_cpp";
 
           env.TERMINFO_DIRS = "${pkgs.rxvt-unicode-unwrapped.terminfo}/share/terminfo:/usr/share/terminfo:/lib/terminfo";
 
