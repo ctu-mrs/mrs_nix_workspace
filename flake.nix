@@ -6,6 +6,7 @@
 
     nixpkgs.follows = "nix-mrs-overlay/nixpkgs";
   };
+
   outputs = { self, nix-ros-overlay, nix-mrs-overlay, nixpkgs }:
     nix-ros-overlay.inputs.flake-utils.lib.eachDefaultSystem (system:
       let
@@ -32,12 +33,12 @@
                 ros-core
                 rviz2
 
-                rosPkgs.mrsCustomPkgs.mrs_multirotor_simulator
-                rosPkgs.mrsCustomPkgs.mrs_uav_managers
-                rosPkgs.mrsCustomPkgs.mrs_uav_controllers
-                rosPkgs.mrsCustomPkgs.mrs_uav_trackers
-                rosPkgs.mrsCustomPkgs.mrs_uav_trajectory_generation
-                rosPkgs.mrsCustomPkgs.mrs_uav_core
+                mrsCustomPkgs.mrs_multirotor_simulator
+                mrsCustomPkgs.mrs_uav_managers
+                mrsCustomPkgs.mrs_uav_controllers
+                mrsCustomPkgs.mrs_uav_trackers
+                mrsCustomPkgs.mrs_uav_trajectory_generation
+                mrsCustomPkgs.mrs_uav_core
               ];
             })
           ];
