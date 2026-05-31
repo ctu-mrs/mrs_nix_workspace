@@ -34,6 +34,10 @@
 
           env.TERMINFO_DIRS = "${pkgs.rxvt-unicode-unwrapped.terminfo}/share/terminfo:/usr/share/terminfo:/lib/terminfo";
 
+          LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+            pkgs.rosPackages.jazzy.rmw-zenoh-cpp
+          ];
+
           packages = [
 
             pkgs.colcon
@@ -58,6 +62,8 @@
           shellHook = ''
             echo "🔧 Welcome to the MRS devenv environment!"
 
+            export NIX_ENV_ROOT="$PWD"
+
             # ROS autocomplete
             eval "$(register-python-argcomplete ros2)"
             eval "$(register-python-argcomplete colcon)"
@@ -81,7 +87,7 @@
               echo "☢️ not running with nixGL"
             fi
 
-            source ./install/setup.sh
+            [ -f ./install/setup.sh ] && source ./install/setup.sh
           '';
         };
       });
