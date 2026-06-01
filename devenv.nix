@@ -1,7 +1,7 @@
-{ pkgs, rosPkgs, rosDeps, nixgl, ... }:
+{ pkgs, rosPkgs, nixgl, ... }:
 let
   ros = rosPkgs.rosPackages.jazzy;
-  deps = rosDeps;
+  mrs = rosPkgs.mrsCustomPkgs;
 in
 {
   env.RMW_IMPLEMENTATION="rmw_fastrtps_cpp";
@@ -20,7 +20,22 @@ in
     rosPkgs.nixgl.auto.nixGLDefault
     # rosPkgs.nixgl.auto.nixGLNvidia
     # rosPkgs.nixgl.nixGLIntel
-    # (ros.buildEnv { paths = deps; })
+
+    (ros.buildEnv { paths = [
+
+        ros.ros-core
+        ros.ament-cmake-core
+        ros.python-cmake-module
+
+        ros.rmw-zenoh-cpp
+
+        ros.rclpy
+        ros.rviz2
+
+        mrs.mrs_uav_core
+
+      ];
+    })
 
   ];
 
@@ -50,6 +65,6 @@ in
       echo "☢️ not running with nixGL"
     fi
 
-    # source ./install/local_setup.zsh
+    [ -f ./install/setup.sh ] && source ./install/setup.sh
   '';
 }
