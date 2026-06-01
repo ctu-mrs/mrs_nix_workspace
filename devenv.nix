@@ -10,6 +10,10 @@ in
   # fixes tmux inside urxvt
   env.TERMINFO_DIRS = "${pkgs.rxvt-unicode-unwrapped.terminfo}/share/terminfo:/usr/share/terminfo:/lib/terminfo";
 
+  env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
+    rosPkgs.rosPackages.jazzy.rmw-zenoh-cpp
+  ];
+
   packages = [
     pkgs.tmux
     pkgs.rxvt-unicode-unwrapped.terminfo
@@ -18,24 +22,19 @@ in
     rosPkgs.nixgl.auto.nixGLDefault
 
     ros.ament-cmake
-    ros.rosidl-default-generators
-    ros.rosidl-default-runtime
-
-    ros.ros-core
-    ros.ament-cmake-core
-    ros.python-cmake-module
+    # ros.rosidl-default-generators
+    # ros.rosidl-default-runtime
+    # ros.ament-cmake-core
+    # ros.python-cmake-module
 
     ros.rmw-zenoh-cpp
 
     ros.rclpy
     ros.rviz2
 
-    # --- RAW DEVELOPMENT DEPENDENCIES ---
-    # Provide the unrolled base dependencies your local workspace needs to compile.
-    # Do NOT use buildEnv here.
-    mrs.mrs_msgs
-    mrs.mrs_lib
-    mrs.mrs_uav_hw_api
+    mrs.mrs_uav_core
+
+    (ros.buildEnv { paths = [ros.ros-core]; })
   ];
 
   enterShell = ''
