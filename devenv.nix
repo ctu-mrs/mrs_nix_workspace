@@ -37,6 +37,8 @@ in
   enterShell = ''
     echo "🔧 Welcome to the MRS devenv environment!"
 
+    export NIX_ENV_ROOT="$PWD"
+
     # ROS autocomplete
     eval "$(register-python-argcomplete ros2)"
     eval "$(register-python-argcomplete colcon)"

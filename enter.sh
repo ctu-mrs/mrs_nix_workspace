@@ -1,2 +1,4 @@
+# nvidia etc.
 export NIXPKGS_ALLOW_UNFREE=1
+
 nix develop --impure --accept-flake-config
