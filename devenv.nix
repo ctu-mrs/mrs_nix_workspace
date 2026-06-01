@@ -10,8 +10,10 @@ in
   # fixes tmux inside urxvt
   env.TERMINFO_DIRS = "${pkgs.rxvt-unicode-unwrapped.terminfo}/share/terminfo:/usr/share/terminfo:/lib/terminfo";
 
+  # this makes additional RMWs work
   env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
     rosPkgs.rosPackages.jazzy.rmw-zenoh-cpp
+    rosPkgs.rosPackages.jazzy.rmw-cyclonedds-cpp
   ];
 
   packages = [
@@ -19,18 +21,13 @@ in
     pkgs.rxvt-unicode-unwrapped.terminfo
 
     rosPkgs.colcon
+
     rosPkgs.nixgl.auto.nixGLDefault
 
-    ros.ament-cmake
-    # ros.rosidl-default-generators
-    # ros.rosidl-default-runtime
-    # ros.ament-cmake-core
-    # ros.python-cmake-module
-
-    ros.rmw-zenoh-cpp
-
-    ros.rclpy
     ros.rviz2
+
+    ros.rmw-cyclonedds-cpp
+    ros.rmw-zenoh-cpp
 
     mrs.mrs_uav_core
 
