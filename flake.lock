@@ -282,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1780300748,
-        "narHash": "sha256-XnyhvIIN6U9eQPt1wmE7+zN8SbuGrnwUHc8v/eCfBRU=",
+        "lastModified": 1780302060,
+        "narHash": "sha256-yOJPzYpcgaIvHVkHHnDS+ShnyvIf5L1jIop/T1QGkK0=",
         "owner": "ctu-mrs",
         "repo": "nix-mrs-overlay",
-        "rev": "28d4b16b7352243dde9d889bb53bbbde594bc5b7",
+        "rev": "fe64eb3a340b6878471e3566a88aa54fe0efe93c",
         "type": "github"
       },
       "original": {
@@ -303,16 +303,16 @@
         "rosdistro": "rosdistro"
       },
       "locked": {
-        "lastModified": 1780267343,
-        "narHash": "sha256-8CS9iwOsFtQ6tjeMtxtGR+NybyD5Vbs8Z0XZ6LrHfn4=",
-        "owner": "lopsided98",
+        "lastModified": 1780271209,
+        "narHash": "sha256-oN3k8qXoQlWNqh+QuOozrXdxht7feVQuL3qM4oHI41s=",
+        "owner": "wentasah",
         "repo": "nix-ros-overlay",
-        "rev": "f8282f82c02c1600551948766789274444ec7750",
+        "rev": "c7455dcd0256c30c7b37edeb5a59e041af9c67d7",
         "type": "github"
       },
       "original": {
-        "owner": "lopsided98",
-        "ref": "develop",
+        "owner": "wentasah",
+        "ref": "build-env-prefix",
         "repo": "nix-ros-overlay",
         "type": "github"
       }
@@ -349,17 +349,18 @@
         "nixpkgs": "nixpkgs_3"
       },
       "locked": {
-        "lastModified": 1762090880,
-        "narHash": "sha256-fbRQzIGPkjZa83MowjbD2ALaJf9y6KMDdJBQMKFeY/8=",
-        "owner": "nix-community",
-        "repo": "nixGL",
-        "rev": "b6105297e6f0cd041670c3e8628394d4ee247ed5",
-        "type": "github"
+        "lastModified": 1778180494,
+        "narHash": "sha256-1Uwu4lN15xfjn0o5cFjdLH+w2CHqLlV+YkKZXTGWeSQ=",
+        "ref": "refs/pull/223/head",
+        "rev": "e0fbb55ff50d0f1fc7b55f34035dfb04f199a2fb",
+        "revCount": 184,
+        "type": "git",
+        "url": "https://github.com/nix-community/nixGL.git"
       },
       "original": {
-        "owner": "nix-community",
-        "repo": "nixGL",
-        "type": "github"
+        "ref": "refs/pull/223/head",
+        "type": "git",
+        "url": "https://github.com/nix-community/nixGL.git"
       }
     },
     "nixpkgs": {
@@ -431,11 +432,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1746378225,
-        "narHash": "sha256-OeRSuL8PUjIfL3Q0fTbNJD/fmv1R+K2JAOqWJd3Oceg=",
+        "lastModified": 1778179679,
+        "narHash": "sha256-zS4Q9ON3peQMHAAsUiQWVmK3sSfsWpop9O6K1s9jjxY=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "93e8cdce7afc64297cfec447c311470788131cd9",
+        "rev": "f6030e80a8013a7fcdbbb89b7be2ae6b8b1eaee7",
         "type": "github"
       },
       "original": {

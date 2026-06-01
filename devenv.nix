@@ -11,32 +11,31 @@ in
   env.TERMINFO_DIRS = "${pkgs.rxvt-unicode-unwrapped.terminfo}/share/terminfo:/usr/share/terminfo:/lib/terminfo";
 
   packages = [
-    rosPkgs.colcon
-
     pkgs.tmux
-
     pkgs.rxvt-unicode-unwrapped.terminfo
 
+    rosPkgs.colcon
     rosPkgs.nixgl.auto.nixGLDefault
-    # rosPkgs.nixgl.auto.nixGLNvidia
-    # rosPkgs.nixgl.nixGLIntel
 
-    (ros.buildEnv { paths = [
+    ros.ament-cmake
+    ros.rosidl-default-generators
+    ros.rosidl-default-runtime
 
-        ros.ros-core
-        ros.ament-cmake-core
-        ros.python-cmake-module
+    ros.ros-core
+    ros.ament-cmake-core
+    ros.python-cmake-module
 
-        ros.rmw-zenoh-cpp
+    ros.rmw-zenoh-cpp
 
-        ros.rclpy
-        ros.rviz2
+    ros.rclpy
+    ros.rviz2
 
-        mrs.mrs_uav_core
-
-      ];
-    })
-
+    # --- RAW DEVELOPMENT DEPENDENCIES ---
+    # Provide the unrolled base dependencies your local workspace needs to compile.
+    # Do NOT use buildEnv here.
+    mrs.mrs_msgs
+    mrs.mrs_lib
+    mrs.mrs_uav_hw_api
   ];
 
   enterShell = ''
@@ -56,13 +55,13 @@ in
     export __VK_LAYER_NV_optimus=NVIDIA_only
 
     if command -v nixGL &> /dev/null; then
-      echo "☢️ WARNING: Globally injecting host graphics drivers into shell..."
+      echo "WARNING: Globally injecting host graphics drivers into shell..."
 
       export LD_LIBRARY_PATH=$(nixGL printenv LD_LIBRARY_PATH):$LD_LIBRARY_PATH
       export LIBGL_DRIVERS_PATH=$(nixGL printenv LIBGL_DRIVERS_PATH)
       export __EGL_VENDOR_LIBRARY_FILENAMES=$(nixGL printenv __EGL_VENDOR_LIBRARY_FILENAMES)
     else
-      echo "☢️ not running with nixGL"
+      echo "not running with nixGL"
     fi
 
     [ -f ./install/setup.sh ] && source ./install/setup.sh

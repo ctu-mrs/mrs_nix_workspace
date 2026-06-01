@@ -1,10 +1,11 @@
 {
   inputs = {
-    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/develop";
 
     nix-mrs-overlay.url = "github:ctu-mrs/nix-mrs-overlay/master";
 
     nixpkgs.follows = "nix-mrs-overlay/nixpkgs";
+
+    nix-ros-overlay.follows = "nix-mrs-overlay/nix-ros-overlay";
 
     nixgl.url = "github:nix-community/nixGL";
   };

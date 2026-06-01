@@ -9,7 +9,8 @@
 
     nix-ros-overlay.follows = "nix-mrs-overlay/nix-ros-overlay";
 
-    nixgl.url = "github:nix-community/nixGL";
+    # nixgl.url = "github:nix-community/nixGL";
+    nixgl.url = "git+https://github.com/nix-community/nixGL.git?ref=refs/pull/223/head";
   };
 
   outputs = inputs@{ flake-parts, ... }:
@@ -35,6 +36,7 @@
           };
         in
         {
+
           devenv.shells.default = {
             name = "mrs-dev-shell";
 
