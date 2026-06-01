@@ -36,25 +36,17 @@
           };
 
           ros = rosPkgs.rosPackages.jazzy;
+          mrs = rosPkgs.mrsCustomPkgs;
 
           rosDeps = [
             ros.ros-core
-            ros.sensor-msgs
             ros.ament-cmake-core
             ros.python-cmake-module
             ros.rmw-zenoh-cpp
             ros.rclpy
             ros.rviz2
             
-            rosPkgs.mrsCustomPkgs.mrs_multirotor_simulator
-            rosPkgs.mrsCustomPkgs.mrs_uav_managers
-            rosPkgs.mrsCustomPkgs.mrs_uav_controllers
-            rosPkgs.mrsCustomPkgs.mrs_uav_trackers
-            rosPkgs.mrsCustomPkgs.mrs_uav_trajectory_generation
-            rosPkgs.mrsCustomPkgs.mrs_uav_core
-
-            pkgs.tmux
-            pkgs.tmuxinator
+            mrs.mrs_uav_core
           ];
         in
         {

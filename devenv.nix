@@ -20,8 +20,8 @@ in
     rosPkgs.nixgl.auto.nixGLDefault
     # rosPkgs.nixgl.auto.nixGLNvidia
     # rosPkgs.nixgl.nixGLIntel
+    # (ros.buildEnv { paths = deps; })
 
-    (ros.buildEnv { paths = deps; })
   ];
 
   enterShell = ''

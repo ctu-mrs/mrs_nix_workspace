@@ -16,6 +16,12 @@ direnv deny
 direnv reload
 ```
 
+## Updating the underlying overlays
+
+```
+nix develop --refresh --impure
+```
+
 ## Running GUI Apps
 
 Put

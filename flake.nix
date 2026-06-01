@@ -1,6 +1,6 @@
 {
   inputs = {
-    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/master";
+    nix-ros-overlay.url = "github:lopsided98/nix-ros-overlay/develop";
 
     nix-mrs-overlay.url = "github:ctu-mrs/nix-mrs-overlay/master";
 
@@ -16,6 +16,7 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
+
             nix-ros-overlay.overlays.default
             nix-mrs-overlay.overlays.default
             nixgl.overlay
@@ -46,17 +47,10 @@
 
             ros.ros-core
             ros.rviz2
-            ros.rmw-zenoh-cpp
-            ros.rmw-cyclonedds-cpp
             ros.rclpy
 
-            mrs.mrs_multirotor_simulator
-            mrs.mrs_uav_managers
-            mrs.mrs_uav_controllers
-            mrs.mrs_uav_trackers
-            mrs.mrs_uav_trajectory_generation
             mrs.mrs_uav_core
-            
+
           ];
 
           shellHook = ''
@@ -64,9 +58,7 @@
 
             export NIX_ENV_ROOT="$PWD"
 
-            # ROS autocomplete
-            eval "$(register-python-argcomplete ros2)"
-            eval "$(register-python-argcomplete colcon)"
+            source $NIX_ENV_ROOT/shell_additions.sh
 
             # for nixGL graphics
             export QT_QPA_PLATFORM=xcb
@@ -86,6 +78,10 @@
             else
               echo "☢️ not running with nixGL"
             fi
+
+            # ROS autocomplete
+            eval "$(register-python-argcomplete ros2)"
+            eval "$(register-python-argcomplete colcon)"
 
             [ -f ./install/setup.sh ] && source ./install/setup.sh
           '';
