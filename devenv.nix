@@ -1,4 +1,4 @@
-{ pkgs, rosPkgs, nixgl, ... }:
+{ pkgs, rosPkgs, resolveDep, nixgl, ... }:
 let
   ros = rosPkgs.rosPackages.jazzy;
   mrs = rosPkgs.mrsCustomPkgs;
@@ -21,17 +21,18 @@ in
     pkgs.rxvt-unicode-unwrapped.terminfo
 
     rosPkgs.colcon
-
     rosPkgs.nixgl.auto.nixGLDefault
 
-    ros.rviz2
+    (ros.buildEnv { paths = [
+      ros.ament-clang-format
+      ros.ament-cmake-clang-format
+      ros.ament-lint-auto
+      ros.rmw-cyclonedds-cpp
+      ros.rmw-zenoh-cpp
+      ros.rviz2
 
-    ros.rmw-cyclonedds-cpp
-    ros.rmw-zenoh-cpp
-
-    mrs.mrs_uav_core
-
-    (ros.buildEnv { paths = [ros.ros-core]; })
+      resolveDep;
+    ]; })
   ];
 
   enterShell = ''
