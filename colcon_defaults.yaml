@@ -4,5 +4,7 @@ build:
     - compile-commands
   symlink-install: True
   allow-overriding: [
-    "mrs_uav_managers"
+    "mrs_uav_managers",
+    "mrs_lib",
+    "mrs_multirotor_simulator"
   ]

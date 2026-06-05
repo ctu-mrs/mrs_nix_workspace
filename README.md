@@ -2,6 +2,22 @@
 
 ## Installing NIX
 
+https://nixos.org/download/
+
+## Running GUI Apps
+
+Install NixGL:
+```bash
+nix profile install github:guibou/nixGL --impure
+```
+
+Put
+```
+export NIXPKGS_ALLOW_UNFREE=1
+```
+to your .zshrc or .bashrc.
+
+
 ## AutoActivation of the shell
 
 ```
@@ -21,14 +37,6 @@ direnv reload
 ```
 nix develop --refresh --impure --accept-flake-config
 ```
-
-## Running GUI Apps
-
-Put
-```
-export NIXPKGS_ALLOW_UNFREE=1
-```
-to your .zshrc or .bashrc.
 
 ## Upgrading ZSH prompt
 

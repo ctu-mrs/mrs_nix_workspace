@@ -25,7 +25,6 @@ in
     rosPkgs.nixgl.auto.nixGLDefault
 
     ros.rviz2
-    ros.rqt-image-view
 
     ros.rmw-cyclonedds-cpp
     ros.rmw-zenoh-cpp
