@@ -4,7 +4,7 @@ let
   mrs = rosPkgs.mrsCustomPkgs;
 in
 {
-  env.RMW_IMPLEMENTATION="rmw_fastrtps_cpp";
+  env.RMW_IMPLEMENTATION="rmw_zenoh_cpp";
   env.RUN_TMUX="false";
 
   # fixes tmux inside urxvt
@@ -25,6 +25,7 @@ in
     rosPkgs.nixgl.auto.nixGLDefault
 
     ros.rviz2
+    ros.rqt-image-view
 
     ros.rmw-cyclonedds-cpp
     ros.rmw-zenoh-cpp
