@@ -17,7 +17,6 @@
         pkgs = import nixpkgs {
           inherit system;
           overlays = [
-
             nix-ros-overlay.overlays.default
             nix-mrs-overlay.overlays.default
             nixgl.overlay
@@ -45,12 +44,19 @@
             pkgs.colcon
             pkgs.tmux
             pkgs.tmuxinator
+            pkgs.lttng-ust
 
-            ros.ros-core
-            ros.rviz2
-            ros.rclpy
-
-            mrs.mrs_uav_core
+            (ros.buildEnv { paths = [
+              ros.ros-core
+              ros.ament-clang-format
+              ros.ament-cmake-core
+              ros.ament-cmake-clang-format
+              ros.ament-lint-auto
+              ros.rmw-cyclonedds-cpp
+              ros.rmw-zenoh-cpp
+              ros.rviz2
+              mrs.mrs_uav_core
+            ]; })
 
           ];
 

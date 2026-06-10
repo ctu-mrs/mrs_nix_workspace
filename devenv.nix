@@ -1,7 +1,52 @@
-{ pkgs, rosPkgs, resolveDep, nixgl, ... }:
+{ pkgs, system, inputs, ... }:
 let
-  ros = rosPkgs.rosPackages.jazzy;
-  mrs = rosPkgs.mrsCustomPkgs;
+  # Instantiate the package set with BOTH overlays applied
+  pkgs = import inputs.nixpkgs {
+    inherit system;
+    overlays = [
+      inputs.nix-ros-overlay.overlays.default
+      inputs.nix-mrs-overlay.overlays.default
+      inputs.nixgl.overlay
+    ];
+  };
+
+  ros = pkgs.rosPackages.jazzy;
+  mrs = pkgs.mrsCustomPkgs;
+
+  pkgsForDeps = [
+    mrs.mrs_lib
+    mrs.mrs_multirotor_simulator
+    mrs.mrs_uav_autostart
+    mrs.mrs_uav_managers
+    mrs.mrs_uav_trackers
+    mrs.mrs_uav_testing
+  ];
+
+  testDeps = pkgs.lib.flatten (map (pkg: pkg.passthru.mrsTestInputs or []) pkgsForDeps);
+
+  myRosEnv = ros.buildEnv {
+      name = "mrs-ros-env";
+      underlay=true;
+      paths = [
+        ros.ros-core
+        ros.rclpy
+        ros.ament-cmake
+        ros.ament-cmake-python
+        ros.ament-cmake-core
+        ros.ament-cmake-clang-format
+        ros.python-cmake-module
+
+        ros.rmw-cyclonedds-cpp
+        ros.rmw-zenoh-cpp
+        ros.rviz2
+
+        mrs.mrs_uav_core
+
+      ]
+      ++
+      testDeps;
+    };
+
 in
 {
   env.RMW_IMPLEMENTATION="rmw_zenoh_cpp";
@@ -12,27 +57,20 @@ in
 
   # this makes additional RMWs work
   env.LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath [
-    rosPkgs.rosPackages.jazzy.rmw-zenoh-cpp
-    rosPkgs.rosPackages.jazzy.rmw-cyclonedds-cpp
+    pkgs.rosPackages.jazzy.rmw-zenoh-cpp
+    pkgs.rosPackages.jazzy.rmw-cyclonedds-cpp
   ];
 
   packages = [
     pkgs.tmux
     pkgs.rxvt-unicode-unwrapped.terminfo
 
-    rosPkgs.colcon
-    rosPkgs.nixgl.auto.nixGLDefault
+    pkgs.colcon
+    pkgs.nixgl.auto.nixGLDefault
 
-    (ros.buildEnv { paths = [
-      ros.ament-clang-format
-      ros.ament-cmake-clang-format
-      ros.ament-lint-auto
-      ros.rmw-cyclonedds-cpp
-      ros.rmw-zenoh-cpp
-      ros.rviz2
+    # pkgs.lttng-ust
 
-      resolveDep;
-    ]; })
+    myRosEnv
   ];
 
   enterShell = ''
@@ -62,6 +100,10 @@ in
     else
       echo "not running with nixGL"
     fi
+
+    # Force xmllint to use the local schema catalog
+    # fixes lint tests
+    export XML_CATALOG_FILES="`ros2 pkg prefix ament_package`/share/ament_package/template/catalog.xml"
 
     [ -f ./install/setup.sh ] && source ./install/setup.sh
   '';

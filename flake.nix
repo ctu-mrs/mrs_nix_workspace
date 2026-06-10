@@ -24,43 +24,16 @@
 
       perSystem = { config, self', inputs', pkgs, system, ... }:
         let
-          # Instantiate the package set with BOTH overlays applied
-          rosPkgs = import inputs.nixpkgs {
-            inherit system;
-            overlays = [
-              inputs.nix-ros-overlay.overlays.default
-              inputs.nix-mrs-overlay.overlays.default
-              inputs.nixgl.overlay
-            ];
-          };
         in
         {
 
           devenv.shells.default = {
+
             name = "mrs-dev-shell";
 
-            # 1. Point directly to the deps.json inside the upstream flake input
-            upstreamJsonPath = inputs.nix-mrs-overlay + "/deps.json";
-           
-            # 2. Parse it exactly as before
-            rawDepsMap = builtins.fromJSON (builtins.readFile upstreamJsonPath);
-            depsMap = builtins.removeAttrs rawDepsMap [ "_comment" ];
-            
-            # 3. Define the packages you are locally developing (so we DON'T pull their binaries)
-            activePackages = [ "mrs_lib" ];
-            
-            # 4. Extract ONLY their build dependencies
-            extractedDeps = builtins.concatLists (
-              map (pkg: depsMap.${pkg}.build_depends or []) activePackages
-            );
-            
-            # Helper to resolve those names into real Nix packages
-            # (Make sure to adapt this to however your downstream flake resolves packages)
-            resolveDep = name: rosPkgs.rosPackages.jazzy.${name} or pkgs.${name};
-
             _module.args = {
-              inherit rosPkgs;
-              inherit resolveDep;
+              inherit system;
+              inherit inputs;
             };
 
             devenv.root =
