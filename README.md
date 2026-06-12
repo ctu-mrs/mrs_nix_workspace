@@ -49,10 +49,17 @@ nix profile add github:guibou/nixGL --impure
 
 https://direnv.net/docs/installation.html
 
-### Ubuntu
-
 ```bash
 sudo apt-get install direnv
+```
+
+### Nix direnv integration
+
+Run
+```bash
+nix profile install nixpkgs#nix-direnv
+mkdir -p $HOME/.config/direnv
+echo "source $HOME/.nix-profile/share/nix-direnv/direnvrc" >> $HOME/.config/direnv/direnvrc
 ```
 
 Enabling direnv in a directory:
@@ -75,7 +82,7 @@ Adding shell hook:
 - For zshell: add `direnv` into your plugins lits.
 - For bash: add `eval "$(direnv hook bash)"` into your .bashrc
 
-## Upgrading ZSH prompt
+## Upgrading shell prompt
 
 Put the following code to your .zshrc.
 ```bash
@@ -129,7 +136,6 @@ elif [[ -n "$BASH_VERSION" ]]; then
     fi
 fi
 ```
-
 
 ## Updating the underlying overlays
 
