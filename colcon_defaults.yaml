@@ -2,19 +2,8 @@ build:
   mixin:
     - rel-with-deb-info
     - compile-commands
-    - mrs-testing
   merge-install: true
   allow-overriding: [
-    "mrs_lib",
-    "mrs_mpc_solvers",
-    "mrs_multirotor_simulator",
-    "mrs_uav_autostart",
-    "mrs_uav_core",
-    "mrs_uav_managers",
-    "mrs_uav_testing",
-    "mrs_uav_trackers",
-    "mrs_uav_hw_api",
-    "mrs_uav_px4_api",
   ]
 test:
   merge-install: true

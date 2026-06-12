@@ -1,1 +1,0 @@
-/home/klaxalk/ws/src/mrs_multirotor_simulator/tmux/mrs_one_drone/start.sh

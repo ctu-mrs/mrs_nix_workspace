@@ -4,39 +4,76 @@
 
 https://nixos.org/download/
 
-## Running GUI Apps
+### Linux
 
-Install NixGL:
 ```bash
-nix profile install github:guibou/nixGL --impure
+curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install | sh -s -- --daemon
 ```
+
+### Enabling experimental features (needed for flakes)
+
+```bash
+mkdir -p ~/.config/nix
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
+```
+
+### Trusting binary caches (needed for downloading packages)
+
+echo "substituters = https://cache.nixos.org/ https://ctu-mrs.cachix.org https://ros.cachix.org https://devenv.cachix.org" >> ~/.config/nix/nix.conf
+echo "trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= ctu-mrs.cachix.org-1:dnw2ixFgGHfTb4bE1MWQTetAUJe9zqKUOBlrTjDuDMI= ros.cachix.org-1:dSyZxI8geDCJrwgvCOHDoAfOm5sV1wCPjBkKL+38Rvo= devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=" >> ~/.config/nix/nix.conf
+
+add `trusted-users = root your_user` to `/etc/nix/nix.conf`
+
+Then restart the nix deamon:
+```bash
+sudo systemctl restart nix-daemon
+```
+
+### Running GUI Apps
 
 Put
 ```
 export NIXPKGS_ALLOW_UNFREE=1
 ```
 to your .zshrc or .bashrc.
+Then, open new terminal.
 
+Install NixGL:
+```bash
+nix profile add github:guibou/nixGL --impure
+```
 
 ## AutoActivation of the shell
 
+### Direnv installation
+
+https://direnv.net/docs/installation.html
+
+### Ubuntu
+
+```bash
+sudo apt-get install direnv
+```
+
+Enabling direnv in a directory:
 ```
 direnv allow
 ```
 
+Disabling it:
 ```
 direnv deny
 ```
 
+Refreshing it:
 ```
 direnv reload
 ```
 
-## Updating the underlying overlays
+Adding shell hook:
 
-```
-nix develop --refresh --impure --accept-flake-config
-```
+- For zshell: add `direnv` into your plugins lits.
+- For bash: add `eval "$(direnv hook bash)"` into your .bashrc
 
 ## Upgrading ZSH prompt
 
@@ -91,4 +128,11 @@ elif [[ -n "$BASH_VERSION" ]]; then
         export PROMPT_COMMAND="set_nix_prompt${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
     fi
 fi
+```
+
+
+## Updating the underlying overlays
+
+```
+nix develop --refresh --impure --accept-flake-config
 ```

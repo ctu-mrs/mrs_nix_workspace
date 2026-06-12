@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-export NIXPKGS_ALLOW_UNFREE=1
-
-watch_file devenv.nix
-watch_file flake.nix
-
-use flake . --accept-flake-config --impure
