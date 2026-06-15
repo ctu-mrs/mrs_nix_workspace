@@ -282,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781467646,
-        "narHash": "sha256-gkVmmdlDoJK3nGRq5bUzZ3I1O8jK4ANJ8WqGnJc0JVA=",
+        "lastModified": 1781500932,
+        "narHash": "sha256-oCb9QGBNtCMyY+MbgvWhSZhkgX4OO23EonogJWX1N4Q=",
         "owner": "ctu-mrs",
         "repo": "nix-mrs-overlay",
-        "rev": "cda0344cb3a53e4e1ed4a7583207cc91a29cd2ec",
+        "rev": "bdd690972499a90bf8b5832f65eb078106a4f05e",
         "type": "github"
       },
       "original": {

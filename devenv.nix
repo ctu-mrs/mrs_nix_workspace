@@ -39,9 +39,9 @@ let
         ros.rmw-cyclonedds-cpp
         ros.rmw-zenoh-cpp
         ros.rviz2
-        ros.mavros
 
         mrs.mrs_uav_core
+        mrs.mrs_uav_px4_api
 
       ]
       ++
