@@ -14,15 +14,11 @@ let
   mrs = pkgs.mrsCustomPkgs;
 
   pkgsForDeps = [
-    mrs.mrs_lib
-    mrs.mrs_multirotor_simulator
-    mrs.mrs_uav_autostart
-    mrs.mrs_uav_managers
-    mrs.mrs_uav_trackers
-    mrs.mrs_uav_testing
   ];
 
   testDeps = pkgs.lib.flatten (map (pkg: pkg.passthru.mrsTestInputs or []) pkgsForDeps);
+
+  MrsrColconMixinPkg = pkgs.callPackage ./mrs-colcon-mixin.nix {};
 
   myRosEnv = ros.buildEnv {
       name = "mrs-ros-env";
@@ -35,6 +31,10 @@ let
         ros.ament-cmake-core
         ros.ament-cmake-clang-format
         ros.python-cmake-module
+
+        # rclcpp
+        ros.ament-cmake-google-benchmark
+        ros.performance-test-fixture
 
         ros.rmw-cyclonedds-cpp
         ros.rmw-zenoh-cpp
@@ -50,7 +50,6 @@ let
 
 in
 {
-  env.RMW_IMPLEMENTATION="rmw_zenoh_cpp";
   env.RUN_TMUX="false";
 
   # fixes tmux inside urxvt
@@ -69,6 +68,8 @@ in
     pkgs.colcon
     pkgs.nixgl.auto.nixGLDefault
 
+    pkgs.opencv
+    pkgs.asio
     # pkgs.lttng-ust
 
     myRosEnv
@@ -78,6 +79,9 @@ in
     echo "🔧 Welcome to the MRS devenv environment!"
 
     export NIX_ENV_ROOT="$PWD"
+
+    export RMW_IMPLEMENTATION=rmw_zenoh_cpp
+    # export ZENOH_ROUTER_CONFIG=$NIX_ENV_ROOT/zenoh_router.json5
 
     # ROS autocomplete
     eval "$(register-python-argcomplete ros2)"
@@ -101,10 +105,6 @@ in
     else
       echo "not running with nixGL"
     fi
-
-    # Force xmllint to use the local schema catalog
-    # fixes lint tests
-    export XML_CATALOG_FILES="`ros2 pkg prefix ament_package`/share/ament_package/template/catalog.xml"
 
     [ -f ./install/setup.sh ] && source ./install/setup.sh
   '';
