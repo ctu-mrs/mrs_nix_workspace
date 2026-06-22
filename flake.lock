@@ -64,11 +64,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1781456191,
-        "narHash": "sha256-aZb6/djq1Msd1oi9L2BEHx7rnRRJEtvWUy2A59zaZVQ=",
+        "lastModified": 1781981587,
+        "narHash": "sha256-xkBPfggcaDdbBl4fhHnhgVv2XPmzM2CtNBCpSwlK4fY=",
         "owner": "cachix",
         "repo": "devenv",
-        "rev": "48a93d1fd74ca3fb4f3f64e942cfcb19a1d9f7e0",
+        "rev": "1ad4a4a03466826fc43127211c341d268efab21b",
         "type": "github"
       },
       "original": {
@@ -282,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1781500932,
-        "narHash": "sha256-oCb9QGBNtCMyY+MbgvWhSZhkgX4OO23EonogJWX1N4Q=",
+        "lastModified": 1782122701,
+        "narHash": "sha256-ZGptds45T8B0juwdjHDQLu1eEDVUvBXo125hqUtnIQU=",
         "owner": "ctu-mrs",
         "repo": "nix-mrs-overlay",
-        "rev": "bdd690972499a90bf8b5832f65eb078106a4f05e",
+        "rev": "1171abf5168abdd58d85dc6d68ac7dba9094f031",
         "type": "github"
       },
       "original": {
@@ -303,16 +303,16 @@
         "rosdistro": "rosdistro"
       },
       "locked": {
-        "lastModified": 1781467497,
-        "narHash": "sha256-jixarmKNqRb6ityNA5coB8q7bs2S1wnq8ihQH+tYVuU=",
-        "owner": "klaxalk",
+        "lastModified": 1781900693,
+        "narHash": "sha256-4KFk+S9ZbMonItYsdPtZjwESsgrCEpXGDa6rosDxLGs=",
+        "owner": "lopsided98",
         "repo": "nix-ros-overlay",
-        "rev": "207d754c3a931c5fae8b9e779f7dc24f0ac8b2ca",
+        "rev": "fb296510db68c2e760980ab8c6daf6ded9060213",
         "type": "github"
       },
       "original": {
-        "owner": "klaxalk",
-        "ref": "fix_libmavconn",
+        "owner": "lopsided98",
+        "ref": "develop",
         "repo": "nix-ros-overlay",
         "type": "github"
       }

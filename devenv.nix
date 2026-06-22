@@ -13,12 +13,20 @@ let
   ros = pkgs.rosPackages.jazzy;
   mrs = pkgs.mrsCustomPkgs;
 
-  pkgsForDeps = [
+  # These packages won't be part of the shell, but their dependencies will.
+  packagesToDevelop = [
   ];
 
-  testDeps = pkgs.lib.flatten (map (pkg: pkg.passthru.mrsTestInputs or []) pkgsForDeps);
+  # 1. Grab everything (including the pesky setup hooks)
+  rawDependencies = pkgs.lib.unique (builtins.concatLists (map (pkg: 
+    (pkg.buildInputs or []) ++ 
+    (pkg.nativeBuildInputs or []) ++ 
+    (pkg.propagatedBuildInputs or []) ++
+    (pkg.propagatedNativeBuildInputs or [])
+  ) packagesToDevelop));
 
-  MrsrColconMixinPkg = pkgs.callPackage ./mrs-colcon-mixin.nix {};
+  # 2. Filter out scripts/paths so devenv gets strictly typed packages
+  extractedDependencies = builtins.filter (x: pkgs.lib.isDerivation x) rawDependencies;
 
   myRosEnv = ros.buildEnv {
       name = "mrs-ros-env";
@@ -32,7 +40,6 @@ let
         ros.ament-cmake-clang-format
         ros.python-cmake-module
 
-        # rclcpp
         ros.ament-cmake-google-benchmark
         ros.performance-test-fixture
 
@@ -43,10 +50,8 @@ let
         mrs.mrs_uav_core
         mrs.mrs_uav_px4_api
 
-      ]
-      ++
-      testDeps;
-    };
+      ] ++ extractedDependencies;
+  };
 
 in
 {
@@ -70,6 +75,7 @@ in
 
     pkgs.opencv
     pkgs.asio
+
     # pkgs.lttng-ust
 
     myRosEnv
