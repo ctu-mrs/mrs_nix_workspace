@@ -144,3 +144,40 @@ fi
 ```
 nix develop --refresh --impure --accept-flake-config
 ```
+
+## Running the simulation example
+
+The `mrs_multirotor_simulator` package ships a tmux example with one drone.
+It is installed in the read-only nix store, so copy it into the workspace first (inside the workspace, direnv keeps the environment loaded).
+
+Enter the environment (or just `cd` into the workspace when direnv is enabled):
+```bash
+export NIXPKGS_ALLOW_UNFREE=1
+nix develop --impure --accept-flake-config
+```
+
+Copy the example (only once):
+```bash
+\cp -rL --no-preserve=mode "$(ros2 pkg prefix mrs_multirotor_simulator)/share/mrs_multirotor_simulator/tmux/mrs_one_drone" ./sim/mrs_one_drone
+chmod +x ./sim/mrs_one_drone/*.sh ./sim/mrs_one_drone/*.py
+```
+
+Run it:
+```bash
+cd sim/mrs_one_drone
+./start.sh
+```
+
+Stop it by running `./kill.sh` from inside the tmux session.
+
+### Troubleshooting
+
+- **`ModuleNotFoundError: No module named 'rclpy._rclpy_pybind11'` with `/opt/ros/jazzy` in the traceback**: the tmux panes source the system ROS from your `.bashrc`/`.zshrc` and mix it with the nix one. Skip the system ROS sourcing inside nix shells:
+  ```bash
+  if [ -z "$IN_NIX_SHELL" ]; then
+    source /opt/ros/jazzy/setup.bash  # or shell_additions.sh
+  fi
+  ```
+  Then kill the old session (`tmux -L mrs kill-server`) and start again from a new terminal.
+- **`tmux -L mrs ...` says `server exited unexpectedly`**: the session runs the nix tmux, the command used the system one. Run tmux commands from inside the nix shell.
+- **`No module named 'qt_gui_cpp'` when starting `rqt_reconfigure`**: only a warning, the C++ rqt plugin loader is not part of the environment. `rqt_reconfigure` works.
